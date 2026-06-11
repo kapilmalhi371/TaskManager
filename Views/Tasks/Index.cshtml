@@ -1,0 +1,52 @@
+﻿@model IEnumerable<TaskManager.Models.TaskItem>
+@{
+    ViewData["Title"] = "My Tasks";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>My Tasks</h2>
+        <a asp-action="Create" class="btn btn-primary">+ New Task</a>
+    </div>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">No tasks yet. Click <strong>New Task</strong> to get started.</div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>Title</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var task in Model)
+                {
+                    <tr>
+                        <td>@task.Title</td>
+                        <td>
+                            <span class="badge @(task.Priority == "High" ? "bg-danger" : task.Priority == "Medium" ? "bg-warning text-dark" : "bg-success")">
+                                @task.Priority
+                            </span>
+                        </td>
+                        <td>
+                            <span class="badge @(task.Status == "Completed" ? "bg-success" : task.Status == "InProgress" ? "bg-primary" : "bg-secondary")">
+                                @task.Status
+                            </span>
+                        </td>
+                        <td>@task.DueDate.ToString("MMM dd, yyyy")</td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@task.Id" class="btn btn-sm btn-warning">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@task.Id" class="btn btn-sm btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

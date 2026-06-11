@@ -1,0 +1,27 @@
+﻿@model TaskManager.Models.TaskItem
+@{ ViewData["Title"] = "Delete Task"; }
+
+<div class="container mt-4" style="max-width:500px;">
+    <h2>Delete Task</h2>
+    <hr />
+    <div class="alert alert-danger">
+        Are you sure you want to delete <strong>@Model.Title</strong>?
+    </div>
+    <dl class="row">
+        <dt class="col-sm-4">Title</dt>
+        <dd class="col-sm-8">@Model.Title</dd>
+        <dt class="col-sm-4">Priority</dt>
+        <dd class="col-sm-8">@Model.Priority</dd>
+        <dt class="col-sm-4">Status</dt>
+        <dd class="col-sm-8">@Model.Status</dd>
+        <dt class="col-sm-4">Due Date</dt>
+        <dd class="col-sm-8">@Model.DueDate.ToString("MMM dd, yyyy")</dd>
+    </dl>
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-danger">Yes, Delete</button>
+            <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
